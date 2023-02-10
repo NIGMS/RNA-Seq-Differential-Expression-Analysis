@@ -20,12 +20,11 @@ These tutorials do this by going step-by-step through specific workflows. These 
 
 ## <a name="requirements">Requirements</a>
 
-These tutorials were designed to be used on cloud computing platforms, with the aim of requiring nothing but the files within this github repository.
+These tutorials were designed to be used on cloud computing platforms, with the aim of requiring nothing but the files within this GitHub repository.
 
 With this in mind, our tutorials use Jupyter Notebook files, which Google Cloud Platform, Amazon Web Service, and Microsoft Azure all provide support for. Therefore, requirements should only require creation of a virtual machine on one of these providers, and the downloading of this github's files to that machine.
 
-For more information on creating a virtual machine and downloading our github to that machine, we have a getting started section below. Currently this section only includes information on how to do this using Google Cloud Platform.
-
+For more information on creating a virtual machine and downloading our GitHub repo to that machine, we have a getting started section below. Currently this section only includes information on how to do this using Google Cloud Platform.
 
 ## <a name="getting-started">Getting Started</a>
 
@@ -36,6 +35,8 @@ The below steps guide you through setting up a virtual machine on Google Cloud P
 Accordingly, before starting, make sure you have a google account and have access to a Google Cloud Platform Project.
 
 Once you have these, you can begin by first navigating to https://console.cloud.google.com/ and logging in with your credentials. Then, in the top left of the screen, navigate to 'select a project', and choose the project you belong to.
+
+This tutorial will cost you just less than $3.00 assuming a n1-standard-8 machine, and assuming you delete the virtual machine and the storage bucket after you finish the tutorial. You can save some time by using an n2 machine, but it will cost a little bit more (thought not that much). 
 
 ### Navigating to the Vertex AI Workbench
 
