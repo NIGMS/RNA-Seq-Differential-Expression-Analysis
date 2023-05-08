@@ -5,7 +5,7 @@
 
 Included here are several tutorials in the form of 'Jupyter notebooks'.
 
-The purpose of these tutorials is to help users familiarize themselves with the cloud computing in the specific context of running bioinformatics workflows. Here is a link to a YouTube video that give you an overview of the tutorials: <https://youtu.be/3ie420Luorc>.
+The purpose of these tutorials is to help users familiarize themselves with the cloud computing in the specific context of running bioinformatics workflows. Here is a link to a YouTube video that gives you an overview of the tutorials: <https://youtu.be/3ie420Luorc>.
 
 These tutorials do this by going step-by-step through specific workflows. These workflows cover the start to finish of basic bioinformatics analysis; starting from downloading raw sequence data, and extending to differential gene expression analysis, and producing common plots in R.
 
