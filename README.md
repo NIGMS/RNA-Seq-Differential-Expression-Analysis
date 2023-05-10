@@ -99,7 +99,7 @@ When you are finished running code, you can turn off your virtual machine to pre
 
 Our tutorials are broken down into 'workflows'. Each notebook file covers a specific workflow, which contains written and visual commentary, as well as the actual step-by-step code for running that workflow analysis. 
 
-These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](getting-started) section. Feel free to explore and run the workflows in any order you like. 
+These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](#getting-started)   section. Feel free to explore and run the workflows in any order you like. 
 
 
 ![RNA-Seq workflow](images/RNA-Seq_Notebook_Homepage.png)
