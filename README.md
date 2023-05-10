@@ -70,7 +70,7 @@ Note, when you are finished running code, you should turn off your virtual machi
 
 Now that you have created your virtual machine, and are in the Jupyterlab screen, you can run our tutorial files. But first you will need to download them.
 The easiest way to do this would probably be to clone our repository directly. This can be done by using the 'Git' menu in Jupyterlab, and selecting the clone option. 
-Next you can type in the link of repository: "https://github.com/King-Laboratory/rnaseq-myco-notebook.git" (without quotation marks) and click 'Clone'. 
+Next you can type in the link of repository: `https://github.com/NIGMS/RNAseqUM.git` and click 'Clone'. 
 
 This should download our repo, and the tutorial files inside, into a folder called 'rnaseq-myco-notebook'. Double click this folder now. Inside you will find all our tutorial files, which you can double click and run.
 
@@ -99,7 +99,7 @@ When you are finished running code, you can turn off your virtual machine to pre
 
 Our tutorials are broken down into 'workflows'. Each notebook file covers a specific workflow, which contains written and visual commentary, as well as the actual step-by-step code for running that workflow analysis. 
 
-These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the <a href="#getting-started">'Getting Started'</a> section. Feel free to explore and run the workflows in any order you like. 
+These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](getting-started) section. Feel free to explore and run the workflows in any order you like. 
 
 
 ![RNA-Seq workflow](images/RNA-Seq_Notebook_Homepage.png)
