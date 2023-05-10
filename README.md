@@ -1,7 +1,7 @@
 [comment]: <> (Hi. If you are seeing this message, please open this file with markdown preview or jupyter notebook. You can do this by right clicking on the readme file and picking 'open with'.)
 # INBRE Google Cloud Training Tutorials
 
-## <a name="overview">Overview</a>
+## Overview
 
 Included here are several tutorials in the form of 'Jupyter notebooks'.
 
@@ -11,14 +11,15 @@ These tutorials do this by going step-by-step through specific workflows. These 
 
 ## Table of Contents
 
-<a href="#requirements">Requirements</a></br>
-<a href="#getting-started">Getting Started</a></br>
-<a href="#workflow">Workflows</a></br>
-<a href="#data">Data</a></br>
-<a href="#funding">Funding</a></br>
-</br>
+[Requirements](#requirements)  
+[Getting Started](#getting-started)  
+[Workflows](#workflows)  
+[Data](#data)  
+[Support Forum Thanks](support-forum-thanks)  
+[Funding](#funding)  
+   
 
-## <a name="requirements">Requirements</a>
+## Requirements
 
 These tutorials were designed to be used on cloud computing platforms, with the aim of requiring nothing but the files within this GitHub repository.
 
@@ -26,7 +27,7 @@ With this in mind, our tutorials use Jupyter Notebook files, which Google Cloud 
 
 For more information on creating a virtual machine and downloading our GitHub repo to that machine, we have a getting started section below. Currently this section only includes information on how to do this using Google Cloud Platform.
 
-## <a name="getting-started">Getting Started</a>
+## Getting Started
 
 This repository contains several notebook files which serve as bioinformatics workflow tutorials.
 
@@ -94,7 +95,7 @@ Jupyter is a powerful tool, with many useful features. For more information on h
 
 When you are finished running code, you can turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the 'Stop' button.
 
-## <a name="workflow">Workflows</a>
+## Workflows
 
 Our tutorials are broken down into 'workflows'. Each notebook file covers a specific workflow, which contains written and visual commentary, as well as the actual step-by-step code for running that workflow analysis. 
 
@@ -104,24 +105,24 @@ These notebooks were designed to be run using a virtual machine on a cloud compu
 ![RNA-Seq workflow](images/RNA-Seq_Notebook_Homepage.png)
 
 
-<strong><a href="Tutorial_1.ipynb">Workflow One</a>:</strong> A short introduction to downloading and mapping sequences to a transcriptome using Trimmomatic and Salmon. Here is a link to the YouTube video demonstrating the tutorial: <https://youtu.be/ChGfBR4do_Y>.
+**[Workflow One](Tutorial_1.ipynb):** A short introduction to downloading and mapping sequences to a transcriptome using Trimmomatic and Salmon. Here is a link to the YouTube video demonstrating the tutorial: <https://youtu.be/ChGfBR4do_Y>.
 
-<strong><a href="Tutorial_1B_Extended.ipynb">Extended Workflow One (Extended)</a>:</strong> An extended version of workflow one. Once you have got your feet wet, you can retry workflow one with this extended version that covers the entire dataset, and includes elaboration such as using SRA tools for sequence downloading, and examples of running batches of fastq files through the pipeline. This workflow may take around an hour to run.
-
-
-<strong><a href="Tutorial_2_Snakemake.ipynb">Workflow One (Using Snakemake)</a>:</strong> Using snakemake to run workflow one.
-
-<strong><a href="Tutorial_3_DEG_Analysis.ipynb">Workflow Two (DEG Analysis)</a>:</strong> Using Deseq2 and R to conduct clustering and differential gene expression analysis.
+**[Extended Workflow One](Tutorial_1B_Extended.ipynb):** An extended version of workflow one. Once you have got your feet wet, you can retry workflow one with this extended version that covers the entire dataset, and includes elaboration such as using SRA tools for sequence downloading, and examples of running batches of fastq files through the pipeline. This workflow may take around an hour to run.
 
 
-## <a name="data">Data</a>
+**[Workflow One (Using Snakemake)](Tutorial_2_Snakemake.ipynb):** Using snakemake to run workflow one.
 
-These tutorials use example sequence data procured from the Sally Molloy labratory here at University of Maine; which investigates the transcriptome change in prophage infected, versus non-prophage infected <I>M. chelonae</I> bacteria. The respective article can be found <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8191103/">here</a>.
+**[Workflow Two (DEG Analysis)](Tutorial_3_DEG_Analysis.ipynb):** Using Deseq2 and R to conduct clustering and differential gene expression analysis.
 
-## <a name="forum">Support Forum Thanks</a>
+
+## Data
+
+These tutorials use example sequence data procured from the Sally Molloy labratory here at University of Maine; which investigates the transcriptome change in prophage infected, versus non-prophage infected *M. chelonae* bacteria. The respective article can be found [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8191103/).
+
+## Support Forum Thanks
 
 Support forum thanks. For almost any programming project, contributions to online databases and support forums are an invaluable resource that are heavily leaned upon. Thank goodness for those people who take the time to answer silly questions.
 
-## <a name="funding">Funding</a>
+## Funding
 
 Funded by the Maine INBRE Program (NIH/NIGMS P20 GM103423).
