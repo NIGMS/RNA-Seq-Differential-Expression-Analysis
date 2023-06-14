@@ -1,4 +1,5 @@
 [comment]: <> (Hi. If you are seeing this message, please open this file with markdown preview or jupyter notebook. You can do this by right clicking on the readme file and picking 'open with'.)
+![course-card](images/UMaine-course-card.png)
 # Maine INBRE Google Cloud Training Tutorials
 
 ## Overview
