@@ -53,11 +53,13 @@ Within the Vertex AI submenu, select 'Workbench'.
 
 Within the Workbench screen, Select the option to create a 'New Notebook'.
 
-Our notebooks include a notebook that uses R code, so check the 'R' framework. This will include Python as well as R compatibility. You can then choose a name for your virutal machine, you can name it whatever you like, and preferably choose a server location closest to you. Ignore the advanced options for now, and a default virtual machine will be created. A default machine has 4 vCPUS and 15GB RAM.
+Our notebooks include a notebook that uses R code, so check the 'R' framework under the 'Customize' tab. This will include Python as well as R compatibility. You can then choose a name for your virutal machine, you can name it whatever you like, and preferably choose a server location closest to you. Ignore the advanced options for now, and a default virtual machine will be created. A default machine has 4 vCPUS and 15GB RAM.
 
 Creating a machine may take a few minutes to finish.
 
-![RNA-Seq workflow](images/newnotebook2.png)
+![Custom notebook](images/Customize-notebook.png)
+
+![Create R notebook](images/Create-R-notebook.png)
 
 ### Starting Your Virtual Machine
 
