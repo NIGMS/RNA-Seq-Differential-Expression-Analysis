@@ -73,7 +73,7 @@ Note, when you are finished running code, you should turn off your virtual machi
 
 Now that you have created your virtual machine, and are in the Jupyterlab screen, you can run our tutorial files. But first you will need to download them.
 The easiest way to do this would probably be to clone our repository directly. This can be done by using the 'Git' menu in Jupyterlab, and selecting the clone option. 
-Next you can type in the link of repository: `https://github.com/NIGMS/RNAseqUM.git` and click 'Clone'. 
+Next you can type in the link of repository: `https://github.com/NIGMS/RNA-Seq-Differential-Expression-Analysis.git` and click 'Clone'. 
 
 This should download our repo, and the tutorial files inside, into a folder called 'rnaseq-myco-notebook'. Double click this folder now. Inside you will find all our tutorial files, which you can double click and run.
 
