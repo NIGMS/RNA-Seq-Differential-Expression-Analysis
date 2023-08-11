@@ -51,15 +51,17 @@ Within the Vertex AI submenu, select 'Workbench'.
 
 ### Creating a Virtual Machine
 
-Within the Workbench screen, Select the option to create a 'New Notebook'.
+In your Vertex AI Workbench, click Create New. Make sure User-Managed Notebooks is highlighted, as shown in the screenshot below. 
 
-Our notebooks include a notebook that uses R code, so check the 'R' framework under the 'Customize' tab. This will include Python as well as R compatibility. You can then choose a name for your virutal machine, you can name it whatever you like, and preferably choose a server location closest to you. Ignore the advanced options for now, and a default virtual machine will be created. A default machine has 4 vCPUS and 15GB RAM.
+![Create New user managed notebook](images/Create_new_notebook.png)
+
+In the new instance window, scroll down and select Advanced Options
+
+![Select Advanced Options](images/Advanced_options.png)
+
+In the Environment tab, select the appropriate operating system and environment. Our notebooks include a notebook that uses R code, so select R 4.2 under the Environment tab. This will include Python as well as R compatibility. You can then choose a name for your virutal machine, you can name it whatever you like, and preferably choose a server location closest to you. A default machine has 4 vCPUS and 15GB RAM. Click Create.
 
 Creating a machine may take a few minutes to finish.
-
-![Custom notebook](images/Customize-notebook.png)
-
-![Create R notebook](images/Create-R-notebook.png)
 
 ### Starting Your Virtual Machine
 
