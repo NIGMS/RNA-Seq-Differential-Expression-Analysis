@@ -4,7 +4,7 @@
 
 ## Overview
 
-Included here are several tutorials in the form of 'Jupyter notebooks'.
+Included here are several tutorials in the form of Jupyter notebooks.
 
 The purpose of these tutorials is to help users familiarize themselves with the cloud computing in the specific context of running bioinformatics workflows. Here is a link to a [YouTube video](https://youtu.be/3ie420Luorc) that gives you an overview of the tutorials.
 
@@ -36,48 +36,48 @@ The below steps guide you through setting up a virtual machine on Google Cloud P
 
 Accordingly, before starting, make sure you have a google account and have access to a Google Cloud Platform Project.
 
-Once you have these, you can begin by first navigating to https://console.cloud.google.com/ and logging in with your credentials. Then, in the top left of the screen, navigate to 'select a project', and choose the project you belong to.
+Once you have these, you can begin by first navigating to https://console.cloud.google.com/ and logging in with your credentials. Then, in the top left of the screen, navigate to **select a project**, and choose the project you belong to.
 
 This tutorial will cost you just less than $3.00 assuming a n1-standard-8 machine, and assuming you delete the virtual machine and the storage bucket after you finish the tutorial. You can save some time by using an n2 machine, but it will cost a little bit more (thought not that much). 
 
 ### Navigating to the Vertex AI Workbench
 
 Once a project has been selected, we can navigate to the Vertex AI Workbench, this is where we can make our virtual machine. 
-To get there, select the navigation menu, and navigate to 'Vertex AI' under the Artificial Intelligence section. 
-Within the Vertex AI submenu, select 'Workbench'.
+To get there, select the navigation menu, and navigate to **Vertex AI** under the Artificial Intelligence section. 
+Within the Vertex AI submenu, select **Workbench**.
 
 ![RNA-Seq workflow](images/navigatecircle.png)
 
 
 ### Creating a Virtual Machine
 
-In your Vertex AI Workbench, click Create New. Make sure User-Managed Notebooks is highlighted, as shown in the screenshot below. 
+In your Vertex AI Workbench, click **Create New**. Make sure User-Managed Notebooks is highlighted, as shown in the screenshot below. 
 
 ![Create New user managed notebook](images/Create_new_notebook.png)
 
-In the new instance window, scroll down and select Advanced Options
+In the new instance window, scroll down and select **Advanced Options**
 
 ![Select Advanced Options](images/Advanced_options.png)
 
-In the Environment tab, select the appropriate operating system and environment. Our notebooks include a notebook that uses R code, so select R 4.2 under the Environment tab. This will include Python as well as R compatibility. You can then choose a name for your virutal machine, you can name it whatever you like, and preferably choose a server location closest to you. A default machine has 4 vCPUS and 15GB RAM. Click Create.
+In the Environment tab, select the appropriate operating system and environment. Our notebooks include a notebook that uses R code, so select R 4.2 under the Environment tab. This will include Python as well as R compatibility. You can then choose a name for your virutal machine, you can name it whatever you like, and preferably choose a server location closest to you. A default machine has 4 vCPUS and 15GB RAM. Click **Create**.
 
 Creating a machine may take a few minutes to finish.
 
 ### Starting Your Virtual Machine
 
-To start your virtual machine by clicking 'Open Jupyerlab'. You will know it is running because of the green checkmark.
+To start your virtual machine by clicking **Open Jupyerlab**. You will know it is running because of the green checkmark.
 
-Note, when you are finished running code, you should turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the 'Stop' button. 
+Note, when you are finished running code, you should turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the **Stop** button. 
 
 ![RNA-Seq workflow](images/startingmachine.png)
 
 ### Downloading Tutorial Files
 
 Now that you have created your virtual machine, and are in the Jupyterlab screen, you can run our tutorial files. But first you will need to download them.
-The easiest way to do this would probably be to clone our repository directly. This can be done by using the 'Git' menu in Jupyterlab, and selecting the clone option. 
-Next you can type in the link of repository: `https://github.com/NIGMS/RNA-Seq-Differential-Expression-Analysis.git` and click 'Clone'. 
+The easiest way to do this would probably be to clone our repository directly. This can be done by using the 'Git' menu in Jupyterlab, and selecting the **Clone a Repository** option. 
+Next you can type in the link of repository: `https://github.com/NIGMS/RNA-Seq-Differential-Expression-Analysis.git` and click **Clone**. 
 
-This should download our repo, and the tutorial files inside, into a folder called 'rnaseq-myco-notebook'. Double click this folder now. Inside you will find all our tutorial files, which you can double click and run.
+This should download our repo, and the tutorial files inside, into a folder called 'RNA-Seq-Differential-Expression-Analysis'. Double click this folder now. Inside you will find all our tutorial files, which you can double click and run.
 
 ![RNA-Seq workflow](images/git.png)
 
@@ -85,7 +85,7 @@ This should download our repo, and the tutorial files inside, into a folder call
 
 All our tutorial workflows are are Jupyter format. To run them you need only to double click the tutorial file you want.
 
-This will open the Jupyter file in Jupyter notebook. From here you can run each section, or 'cell', of the code, one by one, by pushing the 'Play' button on the above menu. 
+This will open the Jupyter file in Jupyter notebook. From here you can run each section, or 'cell', of the code, one by one, by pushing the **Play** button on the above menu. 
 
 Some 'cells' of code take longer for the computer to process than others. You will know a cell is running when a cell has an asterisk next to it \[\*\]. When the cell finishes running, that asterisk will be replaced with a number which represents the order that cell was run in.
 
@@ -98,13 +98,13 @@ Jupyter is a powerful tool, with many useful features. For more information on h
 
 ### Stopping Your Virtual Machine
 
-When you are finished running code, you can turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the 'Stop' button.
+When you are finished running code, you can turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the **Stop** button.
 
 ## Workflows
 
 Our tutorials are broken down into 'workflows'. Each notebook file covers a specific workflow, which contains written and visual commentary, as well as the actual step-by-step code for running that workflow analysis. 
 
-These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](#getting-started)   section. Feel free to explore and run the workflows in any order you like. 
+These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](#getting-started) section. Feel free to explore and run the workflows in any order you like. 
 
 
 ![RNA-Seq workflow](images/RNA-Seq_Notebook_Homepage.png)
