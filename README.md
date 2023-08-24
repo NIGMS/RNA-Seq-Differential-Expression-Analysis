@@ -40,70 +40,21 @@ Once you have these, you can begin by first navigating to https://console.cloud.
 
 This tutorial will cost you just less than $3.00 assuming a n1-standard-8 machine, and assuming you delete the virtual machine and the storage bucket after you finish the tutorial. You can save some time by using an n2 machine, but it will cost a little bit more (thought not that much). 
 
-### Navigating to the Vertex AI Workbench
+### Creating a user managed notebook 
 
-Once a project has been selected, we can navigate to the Vertex AI Workbench, this is where we can make our virtual machine. 
-To get there, select the navigation menu, and navigate to 'Vertex AI' under the Artificial Intelligence section. 
-Within the Vertex AI submenu, select 'Workbench'.
+Follow the steps highlighted [here](https://github.com/STRIDES/NIHCloudLabGCP/blob/main/docs/vertexai.md) to create a new user-managed notebook in Vertex AI. Follow steps 1-8 and be especially careful to enable idle shutdown as highlighted in step 7. For this module you should select Debian 10 and R 4.2 in the Environment tab in step 5. In step 6 in the Machine type tab, select n1-standard-4 from the dropdown box.
 
-![RNA-Seq workflow](images/navigatecircle.png)
-
-
-### Creating a Virtual Machine
-
-Within the Workbench screen, Select the option to create a 'New Notebook'.
-
-Our notebooks include a notebook that uses R code, so check the 'R' framework under the 'Customize' tab. This will include Python as well as R compatibility. You can then choose a name for your virutal machine, you can name it whatever you like, and preferably choose a server location closest to you. Ignore the advanced options for now, and a default virtual machine will be created. A default machine has 4 vCPUS and 15GB RAM.
-
-Creating a machine may take a few minutes to finish.
-
-![Custom notebook](images/Customize-notebook.png)
-
-![Create R notebook](images/Create-R-notebook.png)
-
-### Starting Your Virtual Machine
-
-To start your virtual machine by clicking 'Open Jupyerlab'. You will know it is running because of the green checkmark.
-
-Note, when you are finished running code, you should turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the 'Stop' button. 
-
-![RNA-Seq workflow](images/startingmachine.png)
-
-### Downloading Tutorial Files
-
-Now that you have created your virtual machine, and are in the Jupyterlab screen, you can run our tutorial files. But first you will need to download them.
-The easiest way to do this would probably be to clone our repository directly. This can be done by using the 'Git' menu in Jupyterlab, and selecting the clone option. 
-Next you can type in the link of repository: `https://github.com/NIGMS/RNA-Seq-Differential-Expression-Analysis.git` and click 'Clone'. 
-
-This should download our repo, and the tutorial files inside, into a folder called 'rnaseq-myco-notebook'. Double click this folder now. Inside you will find all our tutorial files, which you can double click and run.
-
-![RNA-Seq workflow](images/git.png)
-
-### Running Tutorial Files
-
-All our tutorial workflows are are Jupyter format. To run them you need only to double click the tutorial file you want.
-
-This will open the Jupyter file in Jupyter notebook. From here you can run each section, or 'cell', of the code, one by one, by pushing the 'Play' button on the above menu. 
-
-Some 'cells' of code take longer for the computer to process than others. You will know a cell is running when a cell has an asterisk next to it \[\*\]. When the cell finishes running, that asterisk will be replaced with a number which represents the order that cell was run in.
-
-You can now explore the tutorials by running the code in each, from top to bottom. Look at the 'workflows' section below for a short description of each tutorial.
-
-Jupyter is a powerful tool, with many useful features. For more information on how to use Jupyter, we recommend searching for Jupyter tutorials and literature online.
-
-
-![RNA-Seq workflow](images/runnotebook.png)
+To clone this repository, use the Git command `git clone https://github.com/NIGMS/RNA-Seq-Differential-Expression-Analysis.git` in the dropdown menu option in Jupyter notebook. Please make sure you only enter the link for the repository that you want to clone. There are other bioinformatics related learning modules available in the [NIGMS Repository](https://github.com/NIGMS). This should download our repo, and the tutorial files inside, into a folder called 'RNA-Seq-Differential-Expression-Analysis'. Double click this folder now. Inside you will find all our tutorial files, which you can double click and run.
 
 ### Stopping Your Virtual Machine
 
-When you are finished running code, you can turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the 'Stop' button.
+When you are finished running code, you can turn off your virtual machine to prevent unneeded billing or resource use by checking your notebook and pushing the **Stop** button.
 
 ## Workflows
 
 Our tutorials are broken down into 'workflows'. Each notebook file covers a specific workflow, which contains written and visual commentary, as well as the actual step-by-step code for running that workflow analysis. 
 
-These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](#getting-started)   section. Feel free to explore and run the workflows in any order you like. 
-
+These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](#getting-started) section. Feel free to explore and run the workflows in any order you like. 
 
 ![RNA-Seq workflow](images/RNA-Seq_Notebook_Homepage.png)
 
