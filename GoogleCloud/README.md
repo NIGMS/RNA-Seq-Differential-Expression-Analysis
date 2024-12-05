@@ -1,7 +1,13 @@
-[comment]: <> (Hi. If you are seeing this message, please open this file with markdown preview or jupyter notebook. You can do this by right clicking on the readme file and picking 'open with'.)
-![course-card](images/UMaine-course-card-2.png)
 # Maine INBRE Google Cloud Training Tutorials
 
+
+
+## Table of Contents
+
+[Overview](#overview)  
+[Getting Started](#getting-started)  
+[Workflows](#workflows)  
+   
 ## Overview
 
 Included here are several tutorials in the form of 'Jupyter notebooks'.
@@ -10,23 +16,6 @@ The purpose of these tutorials is to help users familiarize themselves with the 
 
 These tutorials do this by going step-by-step through specific workflows. These workflows cover the start to finish of basic bioinformatics analysis; starting from downloading raw sequence data, and extending to differential gene expression analysis, and producing common plots in R.
 
-## Table of Contents
-
-[Requirements](#requirements)  
-[Getting Started](#getting-started)  
-[Workflows](#workflows)  
-[Data](#data)  
-[Support Forum Thanks](#support-forum-thanks)  
-[Funding](#funding)  
-   
-
-## Requirements
-
-These tutorials were designed to be used on cloud computing platforms, with the aim of requiring nothing but the files within this GitHub repository.
-
-With this in mind, our tutorials use Jupyter Notebook files, which Google Cloud Platform, Amazon Web Service, and Microsoft Azure all provide support for. Therefore, requirements should only require creation of a virtual machine on one of these providers, and the downloading of this github's files to that machine.
-
-For more information on creating a virtual machine and downloading our GitHub repo to that machine, we have a getting started section below. Currently this section only includes information on how to do this using Google Cloud Platform.
 
 ## Getting Started
 
@@ -73,23 +62,4 @@ These notebooks were designed to be run using a virtual machine on a cloud compu
 
 **[Bonus](Tutorial_5_BonusNotebook.ipynb):** Test your knowledge by filling in the blanks for key Cloud and bioinformatic tasks learned in the other submodules.
 
-## Data
-
-These tutorials use example sequence data procured from the Sally Molloy labratory here at University of Maine; which investigates the transcriptome change in prophage infected, versus non-prophage infected *M. chelonae* bacteria. The respective article can be found [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8191103/).
-
-## Support Forum Thanks
-
-Support forum thanks. For almost any programming project, contributions to online databases and support forums are an invaluable resource that are heavily leaned upon. Thank goodness for those people who take the time to answer silly questions.
-
-## Funding
-
-Funded by the Maine INBRE Program (NIH/NIGMS P20 GM103423).
-
-## **License for Data**
-
-Text and materials are licensed under a Creative Commons CC-BY-NC-SA license. The license allows you to copy, remix and redistribute any of our publicly available materials, under the condition that you attribute the work (details in the license) and do not make profits from it. More information is available [here](https://tilburgsciencehub.com/about).
-
-![Creative commons license](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
-
-This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 

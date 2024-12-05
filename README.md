@@ -5,8 +5,7 @@
 ## Contents
 
 [Overview](#overview)  
-[Requirements](#requirements)    
-[Workflows](#workflows)  
+[Requirements](#requirements) 
 [Data](#data)  
 [Support Forum Thanks](#support-forum-thanks)  
 [Funding](#funding)  
@@ -28,29 +27,6 @@ With this in mind, our tutorials use Jupyter Notebook files, which Google Cloud 
 
 For more information on creating a virtual machine and downloading our GitHub repo to that machine, we have a getting started section in each folder in running notebooks in AWS or Google Cloud platform.
 
-
-## Workflows
-
-Our tutorials are broken down into 'workflows'. Each notebook file covers a specific workflow, which contains written and visual commentary, as well as the actual step-by-step code for running that workflow analysis. 
-
-These notebooks were designed to be run using a virtual machine on a cloud computing provider. For more information on how to do this; navigate to the [Getting Started](#getting-started) section. Feel free to explore and run the workflows in any order you like. 
-
-![RNA-Seq workflow](images/RNA-Seq_Notebook_Homepage.png)
-
-
-**[Workflow One](Tutorial_1.ipynb):** A short introduction to downloading and mapping sequences to a transcriptome using Trimmomatic and Salmon. Here is a link to the YouTube video demonstrating the tutorial: <https://youtu.be/ChGfBR4do_Y>.
-
-**[Extended Workflow One](Tutorial_1B_Extended.ipynb):** An extended version of workflow one. Once you have got your feet wet, you can retry workflow one with this extended version that covers the entire dataset, and includes elaboration such as using SRA tools for sequence downloading, and examples of running batches of fastq files through the pipeline. This workflow may take around an hour to run.
-
-**[Workflow One (Using Snakemake)](Tutorial_2_Snakemake.ipynb):** Using Snakemake to run workflow one.
-
-**[Workflow Two (DEG Analysis)](Tutorial_3_DEG_Analysis.ipynb):** Using Deseq2 and R to conduct clustering and differential gene expression analysis.
-
-**[Workflow three (Using Snakemake with Life Sciences API)](Tutorial_4_Snakemake_LS_API.ipynb):** Using Snakemake to run workflow three.
-
-**[Workflow three (Using Nextflow and Google Batch)](Tutorial_4_Nextflow_GBatch.ipynb):** Using Nextflow to run workflow three.
-
-**[Bonus](Tutorial_5_BonusNotebook.ipynb):** Test your knowledge by filling in the blanks for key Cloud and bioinformatic tasks learned in the other submodules.
 
 ## Data
 
