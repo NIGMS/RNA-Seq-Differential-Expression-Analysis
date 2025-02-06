@@ -141,23 +141,23 @@ Resources:
             Action: sts:AssumeRole
             Principal:
               Service: lambda.amazonaws.com
-    Policies:
-      - PolicyName: LambdaExecutionPolicy
-        PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - ec2:DescribeSubnets
-                  - ec2:DescribeVpcs
-                  - ec2:DescribeSecurityGroups
-                Resource: '*'
-              - Effect: Allow
-                Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource: arn:aws:logs:*:*:*
+      Policies:
+        - PolicyName: LambdaExecutionPolicy
+          PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - ec2:DescribeSubnets
+                    - ec2:DescribeVpcs
+                    - ec2:DescribeSecurityGroups
+                  Resource: '*'
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: arn:aws:logs:*:*:*
   GetSubnetsFunction:
     Type: AWS::Lambda::Function
     Properties:
