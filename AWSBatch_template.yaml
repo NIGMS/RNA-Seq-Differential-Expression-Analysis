@@ -1,0 +1,290 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Batch setup with IAM Roles
+Resources:
+######## Roles & Permissions #############
+  SageMakerExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: sagemaker.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+      Policies:
+        - PolicyName: S3SageMakerAccessPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                  - s3:CreateBucket
+                Resource:
+                  - arn:aws:s3:::nigms-sandbox/
+                  - arn:aws:s3:::nigms-sandbox/*
+                  - !Sub arn:aws:s3:::${BatchBucket}
+                  - arn:aws:s3:::ngi-igenomes
+                  - arn:aws:s3:::ngi-igenomes/*
+
+  AWSBatchEC2InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
+        - arn:aws:iam::aws:policy/AmazonECS_FullAccess
+
+  BatchInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref AWSBatchEC2InstanceRole
+
+  ####### Spin up compute environment ###########
+  BatchComputeEnvironment:
+    Type: AWS::Batch::ComputeEnvironment
+    Properties:
+      ComputeEnvironmentName: !Sub ${AWS::StackName}-RNASeq-ComputeEnvironment
+      Type: MANAGED
+      State: ENABLED
+      ComputeResources:
+        Type: SPOT
+        AllocationStrategy: SPOT_PRICE_CAPACITY_OPTIMIZED
+        MinvCpus: 0
+        MaxvCpus: 256
+        DesiredvCpus: 0
+        InstanceTypes:
+          - optimal
+        Subnets: !Split
+          - ','
+          - !GetAtt GetSubnetsResource.SubnetIds
+        SecurityGroupIds:
+          - !GetAtt GetSubnetsResource.SecurityGroupId
+
+        InstanceRole: !GetAtt BatchInstanceProfile.Arn
+      ServiceRole: !Sub arn:aws:iam::${AWS::AccountId}:role/aws-service-role/batch.amazonaws.com/AWSServiceRoleForBatch
+
+  ######## Job Queue #############
+  BatchJobQueue:
+    Type: AWS::Batch::JobQueue
+    Properties:
+      JobQueueName: !Sub ${AWS::StackName}-RNASeq-JobQueue
+      State: ENABLED
+      ComputeEnvironmentOrder:
+        - ComputeEnvironment: !Ref BatchComputeEnvironment
+          Order: 1
+      Priority: 1000
+    DependsOn: BatchComputeEnvironment
+
+  ######## Output Bucket #############
+  BatchBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${AWS::StackName}-rnaseq-batch-bucket-${AWS::AccountId}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+              KMSMasterKeyID: alias/aws/s3
+      PublicAccessBlockConfiguration:
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  BucketBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref BatchBucket
+      PolicyDocument:
+        Id: RequireEncryptionInTransit
+        Version: '2012-10-17'
+        Statement:
+          - Principal: '*'
+            Action: '*'
+            Effect: Deny
+            Resource:
+              - !GetAtt BatchBucket.Arn
+              - !Sub ${BatchBucket.Arn}/*
+            Condition:
+              Bool:
+                aws:SecureTransport: 'false'
+
+  ####### 
+  CustomECSLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties: 
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: lambda.amazonaws.com
+    Policies:
+      - PolicyName: LambdaExecutionPolicy
+        PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:DescribeSubnets
+                  - ec2:DescribeVpcs
+                  - ec2:DescribeSecurityGroups
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+  GetSubnetsFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: index.lambda_handler
+      Role: !GetAtt CustomeECSLambdaExecutionRole.Arn
+      FunctionName: GetSubnetsFunction
+      Runtime: python3.12
+      TImeout: 60
+      Code: 
+        ZipFile: |
+          import json
+          import boto3
+          import urllib3
+          http = urllib3.PoolManager()
+
+          def send_response(
+          response_url,
+          stack_id,
+          logical_id,
+          request_id,
+          status,
+          data,
+          physical_resource_id=None,
+          reason=None
+          ):
+              response_body = {
+                  'Status': status,
+                  'Reason': reason or 'See the details in CloudWatch Log Stream: {}'.format(data),
+                  'PhysicalResourceId': physical_resource_id or 'Subnets',
+                  'RequestId': request_id,  # Include the RequestId in the response
+                  'Data': data,
+                  'StackId': stack_id,
+                  'LogicalResourceId': logical_id
+              }
+              headers = {
+                  'Content-Type': '',
+                  'Content-Length': str(len(json.dumps(response_body)))
+              }
+
+              try: 
+                  # Send the response to CloudFormation
+                  response = http.request(
+                      'PUT',
+                      response_url,
+                      body=json.dumps(response_body),
+                      headers=headers
+                  )
+
+                  # Capture and print the HTTP response
+                  print(f'Response sent to CloudFormation: HTTP {response.status}')
+                  print(f'Response details: {response.data.decode("utf-8")}')
+                  return response
+                  
+              except Exception as e:
+                  print(f'Error sending response to CloudFormation: {str(e)}')
+                  raise e
+
+          def lambda_handler(event, context):
+              print(f"HERE IS EVENT:\n {json.dumps(event)}")
+              #######################################################
+              #####  what happens if they have multiple VPCs? ####### 
+              #######################################################
+              # Extract the VPCId from ResourceProperties
+              # vpc_id = event['ResourceProperties']['VPCId']
+              response_url = event['ResponseURL']  # Response URL to send status back to CloudFormation
+              request_id = event['RequestId']  # Extract the RequestId from the event
+              stack_id = event['StackId']
+              logical_id = event['LogicalResourceId']
+
+              # print(f"VPCId: {vpc_id}")
+              print(f"RESPONSE_URL: {response_url}")
+              print(f"REQUEST_ID: {request_id}")
+              print(f"STACK_ID: {stack_id}")
+              print(f"LOGICAL_ID: {logical_id}")
+
+              ec2 = boto3.client('ec2')
+              try:
+                  # Extract VPCId 
+                  response_vpc = ec2.describe_vpcs(
+                      Filters=[{ 'Name': 'isDefault', 'Values': ['true']
+                  }])
+                  vpc_id = response_vpc['Vpcs'][0]['VpcId']
+
+                  # Describe subnets in the given VPC
+                  response = ec2.describe_subnets(
+                      Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]}]
+                  )
+
+                  # Describe security group Ids
+                  response_sg = ec2.describe_security_groups(
+                      Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]},
+                                {'Name': 'group-name', 'Values':['default']}])
+
+                  # Extract subnet IDs
+                  subnet_ids = [subnet['SubnetId'] for subnet in response['Subnets']]
+                  
+                  # Extract default security group from VPC
+                  default_security_group_id = response_sg['SecurityGroups'][0]['GroupId']
+
+                  # Prepare success response data
+                  data = {
+                      'SubnetIds': ','.join(subnet_ids),  # Return as comma-separated string
+                      'VpcId': vpc_id,
+                      'SecurityGroupId': default_security_group_id
+                  }
+
+                  # Send success response to CloudFormation with the correct RequestId
+                  print(f"SENDING RESPONSE...")
+                  send_response(response_url, stack_id, logical_id, request_id, 'SUCCESS', data)
+
+              except Exception as e:
+                  # Send failure response to CloudFormation with the correct RequestId
+                  error_message = str(e)
+                  send_response(response_url, stack_id, logical_id, request_id, 'FAILED', {}, reason=error_message)
+  GetSubnetsResource:
+    Type: AWS::CloudFormation::CustomResource
+    Properties:
+      ServiceToken: !GetAtt GetSubnetsFunction.Arn
+      ServiceTimeout: 60
+      
+Outputs:
+  ComputeEnvironmentArn:
+    Description: ARN of the Batch Computer Environment
+    Value: !Ref BatchComputeEnvironment
+  JobQueueArn:
+    Description: ARN of the Batch Job Queue
+    Value: !Ref BatchJobQueue
+  OutputBucketName:
+    Description: Name of the S3 Output Bucket
+    Value: !Ref BatchBucket
