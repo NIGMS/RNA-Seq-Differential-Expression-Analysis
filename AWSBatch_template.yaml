@@ -67,7 +67,7 @@ Resources:
   BatchComputeEnvironment:
     Type: AWS::Batch::ComputeEnvironment
     Properties:
-      ComputeEnvironmentName: !Sub ${AWS::StackName}-RNASeq-ComputeEnvironment
+      ComputeEnvironmentName: !Sub ${AWS::StackName}-ComputeEnvironment
       Type: MANAGED
       State: ENABLED
       ComputeResources:
@@ -78,11 +78,9 @@ Resources:
         DesiredvCpus: 0
         InstanceTypes:
           - optimal
-        Subnets: !Split
-          - ','
-          - !GetAtt GetSubnetsResource.SubnetIds
+        Subnets: !Split [',', !GetAtt GetNetworkingResource.SubnetIds]
         SecurityGroupIds:
-          - !GetAtt GetSubnetsResource.SecurityGroupId
+          - !GetAtt GetNetworkingResource.SecurityGroupId
 
         InstanceRole: !GetAtt BatchInstanceProfile.Arn
       ServiceRole: !Sub arn:aws:iam::${AWS::AccountId}:role/aws-service-role/batch.amazonaws.com/AWSServiceRoleForBatch
@@ -91,7 +89,7 @@ Resources:
   BatchJobQueue:
     Type: AWS::Batch::JobQueue
     Properties:
-      JobQueueName: !Sub ${AWS::StackName}-RNASeq-JobQueue
+      JobQueueName: !Sub ${AWS::StackName}-JobQueue
       State: ENABLED
       ComputeEnvironmentOrder:
         - ComputeEnvironment: !Ref BatchComputeEnvironment
@@ -103,7 +101,7 @@ Resources:
   BatchBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub ${AWS::StackName}-rnaseq-batch-bucket-${AWS::AccountId}
+      BucketName: !Sub ${AWS::StackName}-batch-bucket-${AWS::AccountId}
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
@@ -158,14 +156,14 @@ Resources:
                     - logs:CreateLogStream
                     - logs:PutLogEvents
                   Resource: arn:aws:logs:*:*:*
-  GetSubnetsFunction:
+  GetNetworkingFunction:
     Type: AWS::Lambda::Function
     Properties:
       Handler: index.lambda_handler
-      Role: !GetAtt CustomeECSLambdaExecutionRole.Arn
-      FunctionName: GetSubnetsFunction
+      Role: !GetAtt CustomECSLambdaExecutionRole.Arn
+      FunctionName: GetNetworkingFunction
       Runtime: python3.12
-      TImeout: 60
+      Timeout: 60
       Code: 
         ZipFile: |
           import json
@@ -236,46 +234,55 @@ Resources:
               ec2 = boto3.client('ec2')
               try:
                   # Extract VPCId 
-                  response_vpc = ec2.describe_vpcs(
-                      Filters=[{ 'Name': 'isDefault', 'Values': ['true']
-                  }])
-                  vpc_id = response_vpc['Vpcs'][0]['VpcId']
-
-                  # Describe subnets in the given VPC
-                  response = ec2.describe_subnets(
-                      Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]}]
-                  )
-
-                  # Describe security group Ids
-                  response_sg = ec2.describe_security_groups(
-                      Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]},
-                                {'Name': 'group-name', 'Values':['default']}])
-
-                  # Extract subnet IDs
-                  subnet_ids = [subnet['SubnetId'] for subnet in response['Subnets']]
+                  response_vpc = ec2.describe_vpcs()
                   
-                  # Extract default security group from VPC
-                  default_security_group_id = response_sg['SecurityGroups'][0]['GroupId']
+                  # Check if response vpc list is empty 
+                  if len(response_vpc['Vpcs']) != 0:
+                    vpc_id = ''
+                    for vpc in response_vpc['Vpcs']:
+                      # Check if vpc is default vpc if it is then store in vpc_id variable
+                      if vpc['IsDefault'] == True: 
+                        vpc_id = response_vpc['Vpcs'][0]['VpcId']
+                    # Check if string (vpc_id) is empty and if it is then add first vpc from unfilterd vpc list
+                    if len(vpc_id) == 0: 
+                      vpc_id = response_vpc['Vpcs'][0]['VpcId']
 
-                  # Prepare success response data
-                  data = {
-                      'SubnetIds': ','.join(subnet_ids),  # Return as comma-separated string
-                      'VpcId': vpc_id,
-                      'SecurityGroupId': default_security_group_id
-                  }
+                    # Describe subnets in the given VPC
+                    response = ec2.describe_subnets(
+                        Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]}]
+                    )
 
-                  # Send success response to CloudFormation with the correct RequestId
-                  print(f"SENDING RESPONSE...")
-                  send_response(response_url, stack_id, logical_id, request_id, 'SUCCESS', data)
+                    # Describe security group Ids
+                    response_sg = ec2.describe_security_groups(
+                        Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]},
+                                  {'Name': 'group-name', 'Values':['default']}])
+
+                    # Extract subnet IDs
+                    subnet_ids = [subnet['SubnetId'] for subnet in response['Subnets']]
+
+                    # Extract default security group from VPC
+                    default_security_group_id = response_sg['SecurityGroups'][0]['GroupId']
+
+                    # Prepare success response data
+                    data = {
+                        'SubnetIds': ','.join(subnet_ids),  # Return as comma-separated string
+                        'VpcId': vpc_id,
+                        'SecurityGroupId': default_security_group_id
+                    }
+
+                    # Send success response to CloudFormation with the correct RequestId
+                    print(f"SENDING RESPONSE...")
+                    send_response(response_url, stack_id, logical_id, request_id, 'SUCCESS', data)
 
               except Exception as e:
-                  # Send failure response to CloudFormation with the correct RequestId
-                  error_message = str(e)
-                  send_response(response_url, stack_id, logical_id, request_id, 'FAILED', {}, reason=error_message)
-  GetSubnetsResource:
+                print(f"Error: {e}")
+                # Send failure response to CloudFormation with the correct RequestId
+                error_message = str(e)
+                send_response(response_url, stack_id, logical_id, request_id, 'FAILED', {}, reason=error_message)
+  GetNetworkingResource:
     Type: AWS::CloudFormation::CustomResource
     Properties:
-      ServiceToken: !GetAtt GetSubnetsFunction.Arn
+      ServiceToken: !GetAtt GetNetworkingFunction.Arn
       ServiceTimeout: 60
       
 Outputs:
