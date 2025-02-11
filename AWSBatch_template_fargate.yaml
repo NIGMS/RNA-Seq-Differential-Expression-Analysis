@@ -63,6 +63,8 @@ Resources:
             Statement: 
               - Effect: Allow
                 Action:
+                  - ec2:Describe*
+                  - ecs:Describe*
                   - ecs:RunTask
                   - batch:SubmitJob
                   - iam:PassRole
