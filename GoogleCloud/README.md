@@ -64,7 +64,7 @@ These notebooks were designed to be run using a virtual machine on a cloud compu
 
 ### Gemini (Optional)
 
-Generative AI is available for this tutorial in the form of Gemini if you would like to use it. To run it, please reference Tutorial 1 or run the following code.
+Generative AI is available for this tutorial in the form of Gemini if you would like to use it. To run it, please reference Tutorial 1 or run the following code within the cell of a submodule notebook.
 
 ```!pip install -q google-generativeai google-cloud-secret-manager
 !pip install -q git+https://github.com/NIGMS/NIGMS-Sandbox-Repository-Template.git#subdirectory=llm_integrations
