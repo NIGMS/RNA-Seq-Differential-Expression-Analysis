@@ -64,4 +64,19 @@ These notebooks were designed to be run using a virtual machine on a cloud compu
 
 **[Bonus](Tutorial_5_BonusNotebook.ipynb):** Test your knowledge by filling in the blanks for key Cloud and bioinformatic tasks learned in the other submodules.
 
+## AWS Bedrock (Optional)
 
+Generative AI is available for this tutorial if you would like to use it. To run it, please reference Tutorial 1, or run the following code within a submodule notebook.
+
+```!pip install -q ipywidgets
+import sys
+import os
+util_path = os.path.join(os.getcwd(), 'util')
+if util_path not in sys.path:
+    sys.path.append(util_path)
+
+# Import the display_widgets function from your Python file
+from genai import display_widgets
+
+# Call the function to display the widgets
+display_widgets()
