@@ -1,6 +1,12 @@
 [comment]: <> (Hi. If you are seeing this message, please open this file with markdown preview or jupyter notebook. You can do this by right clicking on the readme file and picking 'open with'.)
-![course-card](images/UMaine-course-card-2.png)
-# Maine INBRE Cloud Training Tutorials
+
+# Cloud-based RNAseq Analysis
+## Maine INBRE
+
+<br>
+<p align="center">
+    <img src="images/UMaine-course-card-2.png" width="400" />
+</p>
 
 ## Contents
 
@@ -21,12 +27,11 @@ These tutorials do this by going step-by-step through specific workflows. These 
 
 ## Requirements
 
-These tutorials were designed to be used on cloud computing platforms, with the aim of requiring nothing but the files within this GitHub repository.
+These tutorials were designed to use cloud computing platforms, with the aim of requiring nothing but the files within this GitHub repository.
 
 With this in mind, our tutorials use Jupyter Notebook files, which Google Cloud Platform, Amazon Web Service, and Microsoft Azure all provide support for. Therefore, requirements should only require creation of a virtual machine on one of these providers, and the downloading of this github's files to that machine.
 
 For more information on creating a virtual machine and downloading our GitHub repo to that machine, we have a getting started section in each folder in running notebooks in AWS or Google Cloud platform.
-
 
 ## Data
 

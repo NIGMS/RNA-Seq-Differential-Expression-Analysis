@@ -97,7 +97,7 @@ workflow RNASEQPROK {
     CUSTOM_DUMPSOFTWAREVERSIONS (
         ch_versions.unique().collectFile(name: 'collated_versions.yml')
     )
-
+    
     //
     // MODULE: Run SALMON_INDEX
     //

@@ -21,6 +21,7 @@ process SALMON_INDEX {
 
     script:
     """
+
     salmon \\
         index \\
         --threads $task.cpus \\
